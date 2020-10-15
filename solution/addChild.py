@@ -1,7 +1,7 @@
 import sys
 sys.path.insert(0, "../")
 from familyTree import FamilyTree
-from solution.relations import Problem1
+from solution.relations import Relations
 
 class AddChild:
 
