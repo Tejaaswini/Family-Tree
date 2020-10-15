@@ -7,7 +7,23 @@ from person import Person
 #Add child
 class GeekTrust:
     @staticmethod
+    def choose_choice(family):
+        choices = ["Add Child", "Find All Relations", "Find Relationship"]
+        for index, selctions in enumerate(choices):
+            print("Enter " + str(index) + " If you want to  " + selctions + ".")
+        choice_number = int(input("Your Choice : "))
+        if choice_number == 0:
+          selection = GeekTrust.add_child(family)
+        elif  choice_number == 1:
+            selection = GeekTrust.print_relatives_of_member(family)
+        else:
+            selection = GeekTrust.know_relationship(family)
+        return selection
+
+    @staticmethod
     def add_child(family):
+        print("*****************************************************************")
+        print("Add Child to family!")
         parent_name = input("Enter Parent Name: ")
         options = ["Daughter", "Son"]
         for index, name in enumerate(options):
@@ -17,6 +33,7 @@ class GeekTrust:
         sex = "F" if option_number == 0 else "M"
         family.add_new_born(parent_name, child_name, sex)
         print("Child Added to parent " +parent_name)
+        print("*****************************************************************")
 
 #Find Relations
     @staticmethod
@@ -53,7 +70,8 @@ class GeekTrust:
 
     @staticmethod
     def print_relatives_of_member(family):
-        print("\n Find the Relatives:-")
+        print("*****************************************************************")
+        print("Find out all the Relatives!")
         person_name = input("Person : ")
         for index, relation in enumerate(family.relation_list):
             print("Enter " + str(index) + " For " + relation + ".")
@@ -61,6 +79,7 @@ class GeekTrust:
         members_in_relation = GeekTrust.get_members_in_relation(family, relation_number, person_name)
         print(person_name + " " + family.relation_list[relation_number] + " :")
         print(", ".join([x.name for x in members_in_relation]))
+        print("*****************************************************************")
 
 #Find Relationship between two specific people
     @staticmethod
@@ -120,15 +139,16 @@ class GeekTrust:
 
     @staticmethod
     def know_relationship(family):
+        print("*****************************************************************")
+        print("Know the relationship between two Specific People!")
         person_name = input("Person Name: ")
         relative_name = input("Relative Name: ")
         person = family.find_member_by_name(person_name)
         relative = family.find_member_by_name(relative_name)
         print(GeekTrust.get_relation_between_two(family, person, relative))
+        print("*****************************************************************")
 
 
 if __name__ == "__main__":
     family = FamilyTree().construct()
-    GeekTrust.add_child(family)
-    GeekTrust.print_relatives_of_member(family)
-    GeekTrust.know_relationship(family)
+    GeekTrust.choose_choice(family)
