@@ -1,12 +1,11 @@
 import sys
 sys.path.insert(0, "../")
 from familyTree import FamilyTree
-from solution.relations import Relations
 from family import Family
 from person import Person
 
 #Add child
-class AddChild:
+class GeekTrust:
     @staticmethod
     def add_child(family):
         parent_name = input("Enter Parent Name: ")
@@ -20,7 +19,6 @@ class AddChild:
         print("Child Added to parent " +parent_name)
 
 #Find Relations
-class Relations:
     @staticmethod
     def get_relation_function(x):
         return {0: Person.get_brothers,
@@ -44,7 +42,7 @@ class Relations:
     @staticmethod
     def get_members_in_relation(family, relation_number, name):
         person = family.find_member_by_name(name)
-        get_members_in_relation = Relations.get_relation_function(relation_number)
+        get_members_in_relation = GeekTrust.get_relation_function(relation_number)
         if relation_number in [3, 5]:
             members_in_relation = get_members_in_relation(person, person.father)
         elif relation_number in [4, 6]:
@@ -55,17 +53,16 @@ class Relations:
 
     @staticmethod
     def print_relatives_of_member(family):
-        print("\n problem 1 :-")
+        print("\n Find the Relatives:-")
         person_name = input("Person : ")
         for index, relation in enumerate(family.relation_list):
             print("Enter " + str(index) + " For " + relation + ".")
         relation_number = int(input("Choose Relation: "))
-        members_in_relation = Relations.get_members_in_relation(family, relation_number, person_name)
+        members_in_relation = GeekTrust.get_members_in_relation(family, relation_number, person_name)
         print(person_name + " " + family.relation_list[relation_number] + " :")
         print(", ".join([x.name for x in members_in_relation]))
 
 #Find Relationship between two specific people
-class RelationBetweenTwo:
     @staticmethod
     def get_relation_between_two(family, person, relative):
         if person.generation == relative.generation:
@@ -127,11 +124,11 @@ class RelationBetweenTwo:
         relative_name = input("Relative Name: ")
         person = family.find_member_by_name(person_name)
         relative = family.find_member_by_name(relative_name)
-        print(RelationBetweenTwo.get_relation_between_two(family, person, relative))
+        print(GeekTrust.get_relation_between_two(family, person, relative))
 
 
 if __name__ == "__main__":
     family = FamilyTree().construct()
-    AddChild.add_child(family)
-    Relations.print_relatives_of_member(family)
-    RelationBetweenTwo.know_relationship(family)
+    GeekTrust.add_child(family)
+    GeekTrust.print_relatives_of_member(family)
+    GeekTrust.know_relationship(family)
